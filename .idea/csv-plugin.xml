@@ -165,6 +165,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\src\main\resources\tables\Ростов-на-Дону.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\src\main\resources\tables\Санкт-Петербург.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\src\main\resources\tables\Симферополь.csv">
           <value>
             <Attribute>

@@ -1,17 +1,73 @@
 package parcer;
 
 import au.com.bytecode.opencsv.CSVReader;
-import lombok.Getter;
-import lombok.Setter;
 import parcer.tariffCalc.Terminals;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class CsvParcer {
+
+    private static void printInputStream(InputStream is) {
+
+        try (InputStreamReader streamReader =
+                     new InputStreamReader(is, StandardCharsets.UTF_8);
+             BufferedReader reader = new BufferedReader(streamReader)) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // print a file
+    private static void printFile(File file) {
+
+        List<String> lines;
+        try {
+            lines = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8);
+            lines.forEach(System.out::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    private InputStream getFileFromResourceAsStream(String fileName) {
+
+        // The class loader that loaded the class
+        ClassLoader classLoader = getClass().getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+
+        // the stream holding the file content
+        if (inputStream == null) {
+            throw new IllegalArgumentException("file not found! " + fileName);
+        } else {
+            return inputStream;
+        }
+
+    }
+
+    public static void main(String[] args) {
+        CsvParcer app = new CsvParcer();
+
+        String fileName = "tables";
+
+        System.out.println("getResourceAsStream : " + fileName);
+        InputStream is = app.getFileFromResourceAsStream(fileName);
+        printInputStream(is);
+
+    }
 
     public static void printerMinPrice(String fromCity, String toCity) {
 
@@ -59,8 +115,11 @@ public class CsvParcer {
         ArrayList<Terminals> terminals = new ArrayList<>();
         String city = fromCity.trim();
 
+
+
+
         try {
-            CSVReader csvReader = new CSVReader(new FileReader("src/main/resources/tables/" + city + ".csv"));
+            CSVReader csvReader = new CSVReader(new FileReader("resources\\" + city + ".csv"));
             List<String[]> allRows = csvReader.readAll();
             for (String[] nextLine : allRows) {
 

@@ -201,22 +201,23 @@ public class Bot extends TelegramLongPollingBot {
         if (!hashMapHashMap.containsKey(update.getMessage().getFrom().getId())) {
             hashMapHashMap.put(update.getMessage().getFrom().getId(), new HashMap<>());
         }
-
         hashMapHashMap.get(update.getMessage().getFrom().getId()).put("choice", "info");
 
 
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
         List<InlineKeyboardButton> Buttons = new ArrayList<>();
+
         InlineKeyboardButton webSite = new InlineKeyboardButton("Наш сайт");
         webSite.setUrl("https://megatrans-tk.ru/");
         Buttons.add(webSite);
+
         InlineKeyboardButton instagram = new InlineKeyboardButton("Наш инстаграм");
         instagram.setUrl("https://www.instagram.com/mega__trans/");
         Buttons.add(instagram);
+
         keyboard.add(Buttons);
         inlineKeyboardMarkup.setKeyboard(keyboard);
-
 
         execute(SendMessage.builder()
                         .chatId(update.getMessage().getChatId().toString())
@@ -275,11 +276,16 @@ public class Bot extends TelegramLongPollingBot {
         execute(SendMessage.builder()
                 .chatId(update.getMessage().getChatId().toString())
                 .text(
-                        "✋ Здравствуйте, вы начали работу с ботом ✋\n\n" +
-                        "Нажмите /set_way, чтобы посчитать стоимость " + "отправления \uD83D\uDCB0\n\n" +
-                        "Нажмите /info, чтобы узнать как с нами связаться ☎\n\n" +
-                        "Нажмите /help, чтобы узнать возможности бота \uD83D\uDEE0\n\n")
-//                        "Нажмите /set_from, чтобы открыть список городов\n")
+                        """
+                                ✋ Здравствуйте, вы начали работу с ботом ✋
+
+                                Нажмите /set_way, чтобы посчитать стоимость отправления \uD83D\uDCB0
+
+                                Нажмите /info, чтобы узнать как с нами связаться ☎
+
+                                Нажмите /help, чтобы узнать возможности бота \uD83D\uDEE0
+
+                                """)
                 .build());
 
         System.out.println(hashMapHashMap);
